@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind utilities;
+@tailwind components;
+
+audio::-webkit-media-controls-timeline, audio::-webkit-media-controls-time-remaining-display {
+    display: none;
+}
+
+audio::-webkit-media-controls-overlay-enclosure {
+    display: hidden;
+}
+
+audio::-webkit-media-controls-panel {
+    display: flex;
+    @apply bg-green-400;
+    @apply justify-between;
+}
