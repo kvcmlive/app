@@ -20,7 +20,7 @@
         <div class="absolute w-screen flex p-4 justify-evenly bg-green-400 text-center">
             <p></p>
             <img class="h-7 w-auto" src="https://kvcm.live/assets/images/widelogo.png">
-            <google-cast-launcher></google-cast-launcher>
+            <google-cast-launcher class="h-7 w-auto"></google-cast-launcher>
         </div>
         <div class="flex flex-col md:flex-row justify-center items-center h-screen">
             <img id="cover-art" class="w-80 p-4" src="" />
@@ -31,6 +31,10 @@
         </div>
         <div class="absolute bottom-0 w-screen flex p-4 justify-evenly bg-green-400 text-center">
             <audio controls id="player" src="https://stream.kvcm.live/stream"></audio>
+            <div id="cast-player">
+                <button onclick="playerController.playOrPause();">Play/Pause </button>
+                <button onclick="playerController.stop()"
+            </div>
         </div>
     </div>
     <script>
@@ -89,26 +93,15 @@
         var playerController = new cast.framework.RemotePlayerController(player);
 
         playerController.addEventListener(
-            cast.framework.RemotePlayerEventType.MEDIA_INFO_CHANGED, function () {
-                // Use the current session to get an up to date media status.
-                let session = cast.framework.CastContext.getInstance().getCurrentSession();
-
-                if (!session) {
-                    return;
+            cast.framework.RemotePlayerEventType.IS_CONNECTED_CHANGED, function () {
+                if (!player.isConnected) {
+                    console.log('RemotePlayerController: Player disconnected');
+                    // Update local player to disconnected state
                 }
-
-                // Contains information about the playing media including currentTime.
-                let mediaStatus = session.getMediaSession();
-                if (!mediaStatus) {
-                    return;
-                }
-
-                // mediaStatus also contains the mediaInfo containing metadata and other
-                // information about the in progress content.
-                let mediaInfo = mediaStatus.media;
             });
 
-        
+
+
     </script>
     <script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 </body>
