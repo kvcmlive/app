@@ -68,6 +68,14 @@
 
         setInterval(GetMetadata(), 60 * 1000);
 
+        window['__onGCastApiAvailable'] = function (isAvailable) {
+            if (isAvailable) {
+                initializeCastApi();
+            }
+        };
+    </script>
+    <script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+    <script>
         initializeCastApi = function () {
             cast.framework.CastContext.getInstance().setOptions({
                 receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
@@ -92,15 +100,6 @@
                     // Update local player to disconnected state
                 }
             });
-
-        window['__onGCastApiAvailable'] = function (isAvailable) {
-            if (isAvailable) {
-                initializeCastApi();
-            }
-        };
-    </script>
-    <script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
-    <script>
     </script>
 </body>
 
