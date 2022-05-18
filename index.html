@@ -63,6 +63,10 @@
             document.getElementById("show-host").innerHTML = data.host;
             document.getElementById("cover-art").src = data.image;
         }
+
+        GetMetadata()
+
+        var updateInterval = window.setTimeout(GetMetadata, 60000);
     </script>
     <script>
         window['__onGCastApiAvailable'] = function (isAvailable) {
