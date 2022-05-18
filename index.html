@@ -76,22 +76,22 @@
     </script>
     <script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
     <script>
-        initializeCastApi = function() {
+        initializeCastApi = function () {
             cast.framework.CastContext.getInstance().setOptions({
                 receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
             });
+
+            var castSession = cast.framework.CastContext.getInstance().getCurrentSession();
+
+            var mediaInfo = new chrome.cast.media.MediaInfo("https://stream.kvcm.live/stream", "audio/mp3");
+            var request = new chrome.cast.media.LoadRequest(mediaInfo);
+            castSession.loadMedia(request).then(
+                function () { console.log('Load succeed'); },
+                function (errorCode) { console.log('Error code: ' + errorCode); });
+
+            var player = new cast.framework.RemotePlayer();
+            var playerController = new cast.framework.RemotePlayerController(player);
         };
-
-        var castSession = cast.framework.CastContext.getInstance().getCurrentSession();
-
-        var mediaInfo = new chrome.cast.media.MediaInfo("https://stream.kvcm.live/stream", "audio/mp3");
-        var request = new chrome.cast.media.LoadRequest(mediaInfo);
-        castSession.loadMedia(request).then(
-            function () { console.log('Load succeed'); },
-            function (errorCode) { console.log('Error code: ' + errorCode); });
-
-        var player = new cast.framework.RemotePlayer();
-        var playerController = new cast.framework.RemotePlayerController(player);
 
         playerController.addEventListener(
             cast.framework.RemotePlayerEventType.IS_CONNECTED_CHANGED, function () {
