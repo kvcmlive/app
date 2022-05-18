@@ -73,16 +73,15 @@
                 initializeCastApi();
             }
         };
-
-        initializeCastApi = function () {
-            cast.framework.CastContext.getInstance().setOptions({
-                receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
-                autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
-            });
-        };
     </script>
     <script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
     <script>
+        initializeCastApi = function() {
+            cast.framework.CastContext.getInstance().setOptions({
+                receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
+            });
+        };
+
         var castSession = cast.framework.CastContext.getInstance().getCurrentSession();
 
         var mediaInfo = new chrome.cast.media.MediaInfo("https://stream.kvcm.live/stream", "audio/mp3");
