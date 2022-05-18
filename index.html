@@ -12,7 +12,7 @@
         import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
         const el = document.createElement('pwa-update');
         document.body.appendChild(el);
-     </script>
+    </script>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
         <div class="absolute w-screen flex p-4 justify-evenly bg-green-400 text-center">
             <p></p>
             <img class="h-7 w-auto" src="https://kvcm.live/assets/images/widelogo.png">
-            <a></a>
+            <google-cast-launcher></google-cast-launcher>
         </div>
         <div class="flex flex-col md:flex-row justify-center items-center h-screen">
             <img id="cover-art" class="w-80 p-4" src="" />
@@ -36,11 +36,11 @@
     <script>
         let showdata;
 
-        function GetMetadata() { 
+        function GetMetadata() {
             console.log("Getting new metadata...")
             fetch('https://uxzi5b.deta.dev/now')
-            .then(response => response.json())
-            .then(data => UpdateMetadata(data))
+                .then(response => response.json())
+                .then(data => UpdateMetadata(data))
         }
 
         function UpdateMetadata(data) {
@@ -54,7 +54,7 @@
                     ]
                 });
             }
-            
+
             document.getElementById("show-title").innerHTML = data.title;
             document.getElementById("show-host").innerHTML = data.host;
             document.getElementById("cover-art").src = data.image;
@@ -62,9 +62,22 @@
 
         GetMetadata();
 
-        setInterval(GetMetadata(), 60*1000);
+        setInterval(GetMetadata(), 60 * 1000);
 
+        window['__onGCastApiAvailable'] = function (isAvailable) {
+            if (isAvailable) {
+                initializeCastApi();
+            }
+        };
+
+        initializeCastApi = function () {
+            cast.framework.CastContext.getInstance().setOptions({
+                receiverApplicationId: applicationId,
+                autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
+            });
+        };
     </script>
+    <script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 </body>
 
 </html>
