@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,20 +8,56 @@
     <title>kvcm.live</title>
     <link href="assets/styles.css" rel="stylesheet" />
 </head>
+
 <body>
-    
-    <div class="absolute w-screen flex p-4 justify-evenly bg-green-400 text-center">
-        <p></p>
-        <img class="h-7 w-auto" src="https://kvcm.live/assets/images/widelogo.png">
-        <a></a>
+    <div class="flex flex-col h-screen justify-between">
+        <div class="absolute w-screen flex p-4 justify-evenly bg-green-400 text-center">
+            <p></p>
+            <img class="h-7 w-auto" src="https://kvcm.live/assets/images/widelogo.png">
+            <a></a>
+        </div>
+        <div class="flex flex-col md:flex-row justify-center items-center h-screen">
+            <img id="cover-art" class="w-80 p-4" src="" />
+            <p id="show-title">Show name</p>
+            <p id="show-host">Host(s)</p>
+
+        </div>
+        <div class="absolute bottom-0 w-screen flex p-4 justify-evenly bg-green-400 text-center">
+            <audio controls id="player" src="https://stream.kvcm.live/stream"></audio>
+        </div>
     </div>
-    <div class="flex flex-col md:flex-row justify-center items-center h-screen">
-        <img class="cover-art w-80 p-4" src="https://kvcm.live/assets/images/audioplayground.png" />
-        <p>Show name</p>
-        
-    </div>
-    <div class="absolute bottom-0 w-screen flex p-4 justify-evenly bg-green-400 text-center">
-        <audio controls id="player" src="https://stream.kvcm.live/stream"></audio>
-    </div>
+    <script>
+        let showdata;
+
+        function GetMetadata() { 
+            console.log("Getting new metadata...")
+            fetch('https://uxzi5b.deta.dev/now')
+            .then(response => response.json())
+            .then(data => UpdateMetadata(data))
+        }
+
+        function UpdateMetadata(data) {
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: data.title,
+                    artist: data.host,
+                    album: 'kvcm.live',
+                    artwork: [
+                        { src: data.image, }
+                    ]
+                });
+            }
+            
+            document.getElementById("show-title").innerHTML = data.title;
+            document.getElementById("show-host").innerHTML = data.host;
+            document.getElementById("cover-art").src = data.image;
+        }
+
+        GetMetadata();
+
+        setInterval(GetMetadata(), 60*1000);
+
+    </script>
 </body>
+
 </html>
