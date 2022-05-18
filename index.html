@@ -76,6 +76,39 @@
                 autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
             });
         };
+
+        var castSession = cast.framework.CastContext.getInstance().getCurrentSession();
+
+        var mediaInfo = new chrome.cast.media.MediaInfo("https://stream.kvcm.live/stream", "audio/mp3");
+        var request = new chrome.cast.media.LoadRequest(mediaInfo);
+        castSession.loadMedia(request).then(
+            function () { console.log('Load succeed'); },
+            function (errorCode) { console.log('Error code: ' + errorCode); });
+
+        var player = new cast.framework.RemotePlayer();
+        var playerController = new cast.framework.RemotePlayerController(player);
+
+        playerController.addEventListener(
+            cast.framework.RemotePlayerEventType.MEDIA_INFO_CHANGED, function () {
+                // Use the current session to get an up to date media status.
+                let session = cast.framework.CastContext.getInstance().getCurrentSession();
+
+                if (!session) {
+                    return;
+                }
+
+                // Contains information about the playing media including currentTime.
+                let mediaStatus = session.getMediaSession();
+                if (!mediaStatus) {
+                    return;
+                }
+
+                // mediaStatus also contains the mediaInfo containing metadata and other
+                // information about the in progress content.
+                let mediaInfo = mediaStatus.media;
+            });
+
+        
     </script>
     <script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 </body>
