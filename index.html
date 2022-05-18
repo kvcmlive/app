@@ -33,7 +33,7 @@
             <audio controls id="player" src="https://stream.kvcm.live/stream"></audio>
             <div id="cast-player">
                 <button onclick="playerController.playOrPause();">Play/Pause </button>
-                <button onclick="playerController.stop()"
+                <button onclick="playerController.stop()">Stop</button>
             </div>
         </div>
     </div>
@@ -80,7 +80,9 @@
                 autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
             });
         };
-
+    </script>
+    <script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
+    <script>
         var castSession = cast.framework.CastContext.getInstance().getCurrentSession();
 
         var mediaInfo = new chrome.cast.media.MediaInfo("https://stream.kvcm.live/stream", "audio/mp3");
@@ -99,11 +101,7 @@
                     // Update local player to disconnected state
                 }
             });
-
-
-
     </script>
-    <script src="//www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 </body>
 
 </html>
