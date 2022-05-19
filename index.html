@@ -18,12 +18,14 @@
 <body>
     <div class="flex flex-col h-screen justify-between">
         <div class="absolute w-screen flex p-4 justify-evenly bg-green-400 text-center">
-            <p></p>
+            <div></div>
             <img class="h-7 w-auto" src="https://kvcm.live/assets/images/widelogo.png">
-            <google-cast-launcher class="h-7 w-auto"></google-cast-launcher>
+            <div class="h-7 w-auto">
+                <google-cast-launcher class=""></google-cast-launcher>
+            </div>
         </div>
-        <div class="flex flex-col md:flex-row justify-center items-center h-screen">
-            <img id="cover-art" class="w-80 p-4" src="" />
+        <div class="flex flex-col md:flex-row justify-center items-center h-screen text-center md:text-left">
+            <img id="cover-art" class="w-80 p-4" src="https://kvcm.live/assets/images/staff/staff.png" />
             <div class="flex flex-col">
                 <p id="show-title">Show name</p>
                 <p id="show-host">Host(s)</p>
@@ -31,10 +33,10 @@
         </div>
         <div class="absolute bottom-0 w-screen flex p-4 justify-evenly bg-green-400 text-center">
             <audio controls id="player" src="https://stream.kvcm.live/stream"></audio>
-            <div id="cast-player">
+            <!-- <div id="cast-player">
                 <button onclick="playerController.playOrPause();">Play/Pause </button>
                 <button onclick="playerController.stop()">Stop</button>
-            </div>
+            </div> -->
         </div>
     </div>
     <script>
@@ -66,7 +68,7 @@
 
         GetMetadata()
 
-        var updateInterval = window.setTimeout(GetMetadata, 60000);
+        var updateInterval = window.setInterval(GetMetadata, 60000);
     </script>
     <script>
         window['__onGCastApiAvailable'] = function (isAvailable) {
