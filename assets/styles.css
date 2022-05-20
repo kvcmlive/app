@@ -492,6 +492,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: flex;
 }
 
+.hidden {
+  display: none;
+}
+
 .h-6 {
   height: 1.5rem;
 }
@@ -512,6 +516,30 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .h-7 {
   height: 1.75rem;
+}
+
+.h-max {
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
+
+.h-10 {
+  height: 2.5rem;
+}
+
+.h-11 {
+  height: 2.75rem;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
+.h-fit {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .w-screen {
@@ -542,6 +570,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: auto;
 }
 
+.w-max {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.w-10 {
+  width: 2.5rem;
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -562,9 +600,34 @@ Ensure the default browser behavior of the `hidden` attribute.
   justify-content: space-evenly;
 }
 
+.place-self-stretch {
+  place-self: stretch;
+}
+
+.self-center {
+  align-self: center;
+}
+
+.self-stretch {
+  align-self: stretch;
+}
+
+.justify-self-stretch {
+  justify-self: stretch;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
 .bg-green-400 {
   --tw-bg-opacity: 1;
   background-color: rgb(74 222 128 / var(--tw-bg-opacity));
+}
+
+.object-contain {
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 
 .p-4 {
@@ -577,6 +640,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .text-center {
   text-align: center;
+}
+
+.align-baseline {
+  vertical-align: baseline;
 }
 
 audio::-webkit-media-controls-timeline, audio::-webkit-media-controls-time-remaining-display {
